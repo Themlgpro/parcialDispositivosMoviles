@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +23,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 
-public class Login extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener{
+public class Login extends AppCompatActivity  implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener, Registrarse.OnFragmentInteractionListener   {
 
     boolean isMobile,IsWifi =false;
     private static final String TAG = "SignInActivity";
@@ -72,6 +73,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
         }else{
             return  false;
         }
+    }
+
+    public void ingresar_Clientes(View g){
+        Intent goToClientes = new Intent(this,ClientesActivity.class);
+        goToClientes.addFlags(goToClientes.FLAG_ACTIVITY_CLEAR_TOP | goToClientes.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(goToClientes);
     }
 
     private  void signIn(){
@@ -137,7 +144,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
         obj = new Registrarse();
         android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        transaction.add(R.id.frameLogin,obj);
+        transaction.replace(R.id.frameLogin,obj);
         transaction.commit();
 
     }
@@ -153,6 +160,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }

@@ -8,7 +8,8 @@
 
 
     <android.support.design.widget.TabLayout
-        android:layout_width="394dp"
+        android:id="@+id/tabOptions"
+        android:layout_width="383dp"
         android:layout_height="wrap_content">
 
         <android.support.design.widget.TabItem
@@ -16,13 +17,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="?android:attr/actionModeFindDrawable"
-            android:text="LIstado" />
+            android:text="Listado" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/Crear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@android:drawable/ic_input_add"
+            android:onClick="creaCliente"
             android:text="Crear" />
 
         <android.support.design.widget.TabItem
@@ -39,4 +41,14 @@
             android:icon="@android:drawable/ic_delete"
             android:text="Eliminar" />
     </android.support.design.widget.TabLayout>
+
+    <FrameLayout
+        android:id="@+id/clientesLayout"
+        android:layout_width="384dp"
+        android:layout_height="437dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="72dp"
+        tools:ignore="MissingConstraints">
+
+    </FrameLayout>
 </android.support.constraint.ConstraintLayout>
