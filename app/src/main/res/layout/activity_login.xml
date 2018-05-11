@@ -4,42 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.parcial.appsmoviles.parcial.Login">
+    tools:context="com.parcial.appsmoviles.parcial.Login"
+    tools:layout_editor_absoluteY="81dp">
+
 
     <FrameLayout
         android:id="@+id/frameLogin"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="384dp"
+        android:layout_height="511dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Id"
-                tools:layout_editor_absoluteX="85dp"
-                tools:layout_editor_absoluteY="98dp" />
 
             <EditText
                 android:id="@+id/password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:text="pass"
-                tools:layout_editor_absoluteX="85dp"
-                tools:layout_editor_absoluteY="186dp" />
+                android:text="pass" />
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Id" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:orientation="horizontal">
 
                 <Button
@@ -48,7 +52,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Ingresar"
-                    android:onClick="regist"
                     tools:layout_editor_absoluteX="148dp"
                     tools:layout_editor_absoluteY="278dp" />
 
@@ -57,16 +60,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="regist"
                     android:text="Registrarse" />
+
             </LinearLayout>
 
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/sign_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="137dp"
-                tools:layout_editor_absoluteY="377dp" />
+                android:layout_gravity="center"
+                android:layout_weight="1" />
         </LinearLayout>
+
+
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:id="@+id/frameReg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

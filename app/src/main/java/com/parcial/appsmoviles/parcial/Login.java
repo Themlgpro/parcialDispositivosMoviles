@@ -1,11 +1,13 @@
 package com.parcial.appsmoviles.parcial;
 
 import android.accounts.AccountManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,14 +24,14 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 
-public class Login extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener{
+public class Login extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener, Registrarse.OnFragmentInteractionListener{
 
     boolean isMobile,IsWifi =false;
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
 
     private GoogleSignInClient mGoogleSignInClient;
-   private GoogleApiClient googleApiClient;
+    private GoogleApiClient googleApiClient;
     Registrarse obj;
     AccountManager manager;
 
@@ -136,8 +138,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     public void regist(View g){
         obj = new Registrarse();
         android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-        transaction.add(R.id.frameLogin,obj);
+        transaction.replace(R.id.frameReg,obj);
         transaction.commit();
 
     }
@@ -153,6 +154,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }
