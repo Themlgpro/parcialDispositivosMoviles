@@ -64,6 +64,7 @@ public class Registrarse extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+
     }
 
     @Override
@@ -73,6 +74,10 @@ public class Registrarse extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+        conexion= new Tienda(getContext(),"TiendaBD",null,1);
+        bd = conexion.getWritableDatabase();
     }
 
     @Override
@@ -84,8 +89,8 @@ public class Registrarse extends Fragment {
         cedula = (EditText) indexView.findViewById(R.id.cedula);
         pass = (EditText) indexView.findViewById(R.id.pass);
         rectiPass = (EditText) indexView.findViewById(R.id.pass2);
-
         reg= (Button)indexView.findViewById(R.id.registrar);
+
 
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,26 +112,21 @@ public class Registrarse extends Fragment {
                 }
                 else {
                     try {
-                        String query = "insert into usuarios (cedula,password) values ('" + cedula.getText().toString().trim() + "','" +
-                                MD5.getMD5(pass.getText().toString().trim()) + "','";
-                                bd.execSQL(query);
+                        System.out.print("AQUI!!");
+                        String query = "insert into usuarios (cedula, password) values ('" + cedula.getText().toString().trim() + "','" +
+                                        MD5.getMD5(pass.getText().toString().trim()) + "');";
 
-
+                        bd.execSQL(query);
+                        System.out.println("QUERO");
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-// Add the buttons
                         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 Intent ir = new Intent(getActivity(), Login.class);
                                 ir.addFlags(ir.FLAG_ACTIVITY_CLEAR_TOP | ir.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(ir);
-
                                 // User clicked OK button
                             }
-
-
                         });
-
-
                         AlertDialog dialog = builder.create();
                         dialog.setMessage("Usuario registrado satisfactoriamente :)");
                         dialog.show();
