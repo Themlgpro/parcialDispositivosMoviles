@@ -76,6 +76,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
         }
     }
 
+    public void ingresar_Clientes(View g){
+        Intent goToClientes = new Intent(this,ClientesActivity.class);
+        goToClientes.addFlags(goToClientes.FLAG_ACTIVITY_CLEAR_TOP | goToClientes.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(goToClientes);
+    }
+
     private  void signIn(){
         if(checkConnection()){
             if(isMobile){
