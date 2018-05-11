@@ -75,8 +75,8 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, G
         }
     }
 
-    public void ingresar_Clientes(View g){
-        Intent goToClientes = new Intent(this,ClientesActivity.class);
+    public void intoClientes(View g){
+        Intent goToClientes = new Intent(this,ClientsActivity.class);
         goToClientes.addFlags(goToClientes.FLAG_ACTIVITY_CLEAR_TOP | goToClientes.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(goToClientes);
     }

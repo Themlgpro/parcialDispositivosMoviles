@@ -1,6 +1,7 @@
 package com.parcial.appsmoviles.parcial;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,11 +9,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.parcial.appsmoviles.parcial.Databases.Tienda;
 
@@ -20,12 +19,12 @@ import com.parcial.appsmoviles.parcial.Databases.Tienda;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CrearCliente.OnFragmentInteractionListener} interface
+ * {@link ListarClientes.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CrearCliente#newInstance} factory method to
+ * Use the {@link ListarClientes#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CrearCliente extends Fragment {
+public class ListarClientes extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,13 +35,13 @@ public class CrearCliente extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private EditText cedula,nombre,direccion,telefono;
-    private Button regis;
-    private Tienda conexion;
-    private SQLiteDatabase db;
-    private View indexView;
 
-    public CrearCliente() {
+    Tienda conexion;
+    private Cursor fila;
+    private View indexView;
+    TableLayout tablita;
+
+    public ListarClientes() {
         // Required empty public constructor
     }
 
@@ -52,11 +51,11 @@ public class CrearCliente extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CrearCliente.
+     * @return A new instance of fragment ListarClientes.
      */
     // TODO: Rename and change types and number of parameters
-    public static CrearCliente newInstance(String param1, String param2) {
-        CrearCliente fragment = new CrearCliente();
+    public static ListarClientes newInstance(String param1, String param2) {
+        ListarClientes fragment = new ListarClientes();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -71,38 +70,35 @@ public class CrearCliente extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        conexion=new Tienda(getContext(),"TiendaBD",null,1);
-        db = conexion.getWritableDatabase();
+        conexion =   new Tienda(getContext(),"TiendaBD",null,1);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        indexView= inflater.inflate(R.layout.fragment_crear_cliente, container, false);
-        nombre = (EditText)indexView.findViewById(R.id.nombreCliente);
-        cedula = (EditText)indexView.findViewById(R.id.cedulaCliente);
-        telefono = (EditText) indexView.findViewById(R.id.telefonoCliente);
-        direccion = (EditText) indexView.findViewById(R.id.direccionCliente);
-        regis = (Button)indexView.findViewById(R.id.registrarCliente);
+        indexView = inflater.inflate(R.layout.fragment_listar_clientes, container, false);
+        tablita = (TableLayout)indexView.findViewById(R.id.tabla);
+        SQLiteDatabase db = conexion.getReadableDatabase();
 
-        regis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(nombre.getText().toString().trim().length()!=0 && cedula.getText().toString().trim().length()!=0 &&
-                        telefono.getText().toString().trim().length()!=0 && direccion.getText().toString().trim().length()!=0){
-                    String query = "INSERT INTO clientes (cedula,nombre,telefono,direccion) values ('" + cedula.getText().toString().trim() + "','" +
-                            nombre.getText().toString().trim() + "','" +
-                            telefono.getText().toString().trim() + "','" +
-                            direccion.getText().toString().trim()+ "');";
-                    db.execSQL(query);
-                    Toast.makeText(getContext(),"Cliente registrado",Toast.LENGTH_SHORT).show();
+        Cursor c = db.rawQuery("SELECT * FROM clientes;",null);
 
-                }else{
-                    Toast.makeText(getContext(),"Todos los campos son obligatorios.",Toast.LENGTH_SHORT).show();
+        if (c.moveToFirst()) {
+            //Recorremos el cursor hasta que no haya más registros
+            do {
+                TableRow registro = new TableRow(getContext());
+                tablita.addView(registro);
+                for(int i=0;i<4;i++){
+                    TextView campos = new TextView(getContext());
+                    campos.setWidth(250);
+                    registro.addView(campos);
+                    campos.setText(c.getString(i));
+                    System.out.println(c.getString(i));
+
+
                 }
-            }
-        });
+            } while(c.moveToNext());
+        }
 
 
         return  indexView;
@@ -131,8 +127,6 @@ public class CrearCliente extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
-
 
     /**
      * This interface must be implemented by activities that contain this
