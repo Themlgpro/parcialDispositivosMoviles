@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".crearProducto">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:text="Seleccione el producto" />
+
+            <Spinner
+                android:id="@+id/idProducto"
+                android:layout_width="250dp"
+                android:layout_margin="10dp"
+
+                android:layout_height="wrap_content" />
+
+
+            <EditText
+                android:id="@+id/campoNombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="nombre"
+                android:inputType="textPersonName" />
+
+            <Spinner
+                android:id="@+id/tipoProducto"
+                android:layout_width="wrap_content"
+                android:entries="@array/tipoProdutcto"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/campoPrecio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:digits="01234567890"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="precio"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/Modificar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:gravity="center"
+
+                android:text="Modificar" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</FrameLayout>
