@@ -30,7 +30,7 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, G
     private static final int RC_SIGN_IN = 9001;
 
     private GoogleSignInClient mGoogleSignInClient;
-   private GoogleApiClient googleApiClient;
+    private GoogleApiClient googleApiClient;
     Registrarse obj;
     AccountManager manager;
 
@@ -140,10 +140,15 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, G
         }
     }
 
+    public void iniciar(){
+
+
+
+    }
+
     public void regist(View g){
         obj = new Registrarse();
         android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
         transaction.replace(R.id.frameLogin,obj);
         transaction.commit();
 
