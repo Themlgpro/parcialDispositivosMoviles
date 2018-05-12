@@ -16,9 +16,9 @@
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="id"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Id"
             tools:layout_editor_absoluteX="85dp"
             tools:layout_editor_absoluteY="98dp" />
 
@@ -26,9 +26,9 @@
             android:id="@+id/password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="pass"
             android:ems="10"
             android:inputType="textPassword"
-            android:text="pass"
             tools:layout_editor_absoluteX="85dp"
             tools:layout_editor_absoluteY="186dp" />
 
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="intoClientes"
+                android:onClick="iniciarSesion"
                 android:text="Ingresar"
                 tools:layout_editor_absoluteX="148dp"
                 tools:layout_editor_absoluteY="278dp" />

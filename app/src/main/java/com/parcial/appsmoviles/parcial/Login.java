@@ -4,6 +4,8 @@ import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -12,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -21,6 +24,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.parcial.appsmoviles.parcial.Databases.Tienda;
 
 
 public class Login extends AppCompatActivity  implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener, Registrarse.OnFragmentInteractionListener   {
@@ -28,6 +32,11 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, G
     boolean isMobile,IsWifi =false;
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
+    private Tienda conexion;
+    private SQLiteDatabase bd;
+    EditText username;
+    EditText password;
+    boolean estado = false;
 
     private GoogleSignInClient mGoogleSignInClient;
     private GoogleApiClient googleApiClient;
@@ -38,8 +47,12 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, G
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        username = (EditText)findViewById(R.id.username);
+        password = (EditText)findViewById(R.id.password);
+
+        conexion= new Tienda(this,"TiendaBD",null,1);
+
         setContentView(R.layout.activity_login);
-        //Toast.makeText(this,"Hola oncreae",Toast.LENGTH_LONG).show();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
                 requestEmail()
                 .build();
@@ -48,18 +61,12 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, G
                 .enableAutoManage(this,this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
                 .build();
-
-        // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
-
         manager = AccountManager.get(this);
-
-        //findViewById(R.id.sign_in).setOnClickListener(this);
         findViewById(R.id.sign_in).setOnClickListener(this);
     }
 
     public  boolean checkConnection(){
-        Toast.makeText(this,"hola1",Toast.LENGTH_SHORT).show();
         boolean isConnet=false;
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -75,7 +82,11 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, G
         }
     }
 
-    public void intoClientes(View g){
+    public void inicioG( View v)
+    {
+        intoClientes();
+    }
+    public void intoClientes(){
         Intent goToClientes = new Intent(this,ClientsActivity.class);
         goToClientes.addFlags(goToClientes.FLAG_ACTIVITY_CLEAR_TOP | goToClientes.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(goToClientes);
@@ -104,6 +115,7 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, G
                 });
                 dialogo.show();
             }else{
+                estado = true;
                 Toast.makeText(this,"hola4",Toast.LENGTH_SHORT).show();
                 Intent signIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
                 startActivityForResult(signIntent,RC_SIGN_IN);
@@ -125,7 +137,7 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, G
 
     private void handleSignInResult(GoogleSignInResult result ) {
         if(result.isSuccess()){
-            //irHomeApp();
+            intoClientes();
         }else{
             Toast.makeText(this,"Error",Toast.LENGTH_LONG).show();
         }
@@ -140,7 +152,47 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, G
         }
     }
 
-    public void iniciar(){
+    public void iniciarSesion(View g) {
+            ingresar();
+    }
+
+    public void ingresar(){
+        if(username.getText().toString().trim().equals("")||
+                password.getText().toString().trim().equals(""))
+        {
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+            builder.setMessage("Hay campos vacios")
+                    .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+
+            // Create the AlertDialog object and return it
+            builder.create();
+            builder.show();
+        }
+        else {
+            SQLiteDatabase db = conexion.getReadableDatabase();
+            Cursor c = db.rawQuery("SELECT cedula,password,tipo FROM usuarios WHERE cedula='"+username.getText().toString().trim()
+                    +"' AND password='"+MD5.getMD5(password.getText().toString().trim())+"';",null);
+            if(c.moveToFirst() || estado){
+                username.setText("");
+                password.setText("");
+                intoClientes();
+            }else{
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Login.this);
+                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+                android.app.AlertDialog dialog = builder.create();
+                dialog.setMessage("El usuario no existe");
+                dialog.show();
+            }
+        }
+
 
 
 
@@ -160,6 +212,7 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, G
             case R.id.sign_in:
                 signIn();
                 break;
+
         }
     }
 
