@@ -74,8 +74,6 @@ public class Registrarse extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
         conexion= new Tienda(getContext(),"TiendaBD",null,1);
         bd = conexion.getWritableDatabase();
     }
@@ -83,20 +81,16 @@ public class Registrarse extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         indexView =  inflater.inflate(R.layout.fragment_registrarse, container, false);
-
         cedula = (EditText) indexView.findViewById(R.id.cedula);
         pass = (EditText) indexView.findViewById(R.id.pass);
-        rectiPass = (EditText) indexView.findViewById(R.id.pass2);
         reg= (Button)indexView.findViewById(R.id.registrar);
 
 
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cedula.getText().toString().trim().equals("")||pass.getText().toString().trim().equals("")||
-                        rectiPass.getText().toString().trim().equals(""))
+                if(cedula.getText().toString().trim().equals("")||pass.getText().toString().trim().equals(""))
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setMessage("Todos los campos son obligatorios.")
@@ -112,12 +106,10 @@ public class Registrarse extends Fragment {
                 }
                 else {
                     try {
-                        System.out.print("AQUI!!");
                         String query = "insert into usuarios (cedula, password) values ('" + cedula.getText().toString().trim() + "','" +
                                         MD5.getMD5(pass.getText().toString().trim()) + "');";
 
                         bd.execSQL(query);
-                        System.out.println("QUERO");
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -132,11 +124,20 @@ public class Registrarse extends Fragment {
                         dialog.show();
                     }catch (Exception e) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent ir = new Intent(getActivity(), Login.class);
+                                ir.addFlags(ir.FLAG_ACTIVITY_CLEAR_TOP | ir.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(ir);
+                                // User clicked OK button
+                            }
+                        });
                         AlertDialog dialog = builder.create();
                         dialog.setMessage("Ya existe un usuario con esta cedula");
                         dialog.show();
                         cedula.setText("");
                         pass.setText("");
+
 
                     }
                 }
