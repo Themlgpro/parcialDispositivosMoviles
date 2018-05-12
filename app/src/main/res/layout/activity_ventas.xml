@@ -30,7 +30,6 @@
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:prompt="clientes"
             tools:layout_editor_absoluteX="4dp"
             tools:layout_editor_absoluteY="82dp" />
 
