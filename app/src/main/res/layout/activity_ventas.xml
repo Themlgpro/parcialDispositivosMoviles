@@ -7,52 +7,68 @@
     tools:context=".VentasActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="370dp"
+        android:layout_height="525dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="7dp">
+
+        <TextView
+            android:id="@+id/titulo"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="@string/tituloVentas"
+            android:textSize="30dp"
+            tools:layout_editor_absoluteX="150dp"
+            tools:layout_editor_absoluteY="25dp" />
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center" />
-
-        <CheckBox
-            android:id="@+id/producto1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CheckBox" />
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:prompt="@string/cliente"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="82dp" />
 
         <EditText
             android:id="@+id/Cantidad1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number"
-            android:text="Cantidad" />
+            android:hint="Cantidad"
+            android:inputType="number" />
 
         <CheckBox
-            android:id="@+id/producto2"
+            android:id="@+id/producto1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CheckBox" />
+            android:text="@string/minutos" />
 
         <EditText
             android:id="@+id/Cantidad2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number"
-            android:text="Cantidad" />
+            android:hint="Cantidad"
+            android:inputType="number" />
+
+        <CheckBox
+            android:id="@+id/producto2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/modem" />
 
         <Button
             android:id="@+id/registrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="registrar"
             android:text="Registrar" />
 
 
-
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

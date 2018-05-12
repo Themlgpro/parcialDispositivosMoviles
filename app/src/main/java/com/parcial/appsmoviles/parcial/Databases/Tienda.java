@@ -13,7 +13,7 @@ public class Tienda extends SQLiteOpenHelper {
     String query="create table usuarios " + "(cedula TEXT PRIMARY KEY,password TEXT);";
     String query2="create table productos" + "(idProducto INTEGER PRIMARY KEY AUTOINCREMENT,nombre TEXT,tipoProducto TEXT,Precio INTEGER);";
     String query3="create table clientes" + "(cedula TEXT PRIMARY KEY,nombre TEXT,telefono TEXT,direccion TEXT);";
-    String query4="CREATE TABLE Venta (idVenta INTEGER  NOT NULL,Cliente_Cedula VARCHAR  NOT NULL  ,totalVenta DOUBLE,PRIMARY KEY(idVenta)  ,FOREIGN KEY(Cliente_Cedula)REFERENCES Cliente(Cedula)ON DELETE CASCADE ON UPDATE CASCADE);";
+    String query4="CREATE TABLE Venta (idVenta INTEGER  PRIMARY KEY AUTOINCREMENT ,Cliente_Cedula VARCHAR  NOT NULL  ,totalVenta DOUBLE, FOREIGN KEY(Cliente_Cedula)REFERENCES Cliente(Cedula)ON DELETE CASCADE ON UPDATE CASCADE);";
     String query5="CREATE INDEX Venta_FKIndex1 ON Venta (Cliente_Cedula);";
     String query6="CREATE TABLE ventaDetalle(Producto_idProducto INTEGER  NOT NULL,Venta_idVenta INTEGER  NOT NULL ,Cantidad DOUBLE ,PRIMARY KEY(Producto_idProducto, Venta_idVenta),FOREIGN KEY(Producto_idProducto)REFERENCES Producto(idProducto)ON DELETE CASCADE ON UPDATE CASCADE,FOREIGN KEY(Venta_idVenta)REFERENCES Venta(idVenta)ON DELETE CASCADE ON UPDATE CASCADE);";
     String query7="CREATE INDEX Producto_has_Venta_FKIndex1 ON ventaDetalle (Producto_idProducto);";
