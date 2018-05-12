@@ -21,7 +21,7 @@
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:hint="@string/tituloVentas"
+            android:hint="Ventas"
             android:textSize="30dp"
             tools:layout_editor_absoluteX="150dp"
             tools:layout_editor_absoluteY="25dp" />
@@ -46,7 +46,7 @@
             android:id="@+id/producto1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/minutos" />
+            android:text="minutos" />
 
         <EditText
             android:id="@+id/Cantidad2"
@@ -60,7 +60,7 @@
             android:id="@+id/producto2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/modem" />
+            android:text="modem" />
 
         <Button
             android:id="@+id/registrar"
