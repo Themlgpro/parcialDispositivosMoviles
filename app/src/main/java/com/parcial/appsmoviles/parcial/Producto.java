@@ -33,7 +33,7 @@ public class Producto extends AppCompatActivity implements crearProducto.OnFragm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_producto);
         toolbar= (Toolbar)findViewById(R.id.Menu);
-        setSupportActionBar(toolbar);
+//Esta linea da error si la descomenta y no permite el launch de la actividad para ingresar  setSupportActionBar(toolbar);
         menu = (TabLayout) findViewById(R.id.menu);
         irListado();
 

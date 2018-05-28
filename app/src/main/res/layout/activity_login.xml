@@ -13,17 +13,19 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/usuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="id"
             android:ems="10"
+            android:hint="Usuario"
             android:inputType="textPersonName"
             tools:layout_editor_absoluteX="85dp"
             tools:layout_editor_absoluteY="98dp" />
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/contraseña"
+            android:hint="Contraseña"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="pass"
@@ -68,7 +70,10 @@
         android:id="@+id/frameLogin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#0000ddff">
+        android:background="#0000ddff"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints">
 
     </FrameLayout>
 

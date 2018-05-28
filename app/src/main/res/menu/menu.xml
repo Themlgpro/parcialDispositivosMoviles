@@ -5,26 +5,19 @@
     <item
         android:id="@+id/cliente"
         android:title="Cliente"
-
         app:showAsAction="never"
-
-
         />
 
     <item
         android:id="@+id/producto"
         android:title="Producto"
         app:showAsAction="never"
-
-
         />
 
     <item
         android:id="@+id/venta"
         android:title="Venta"
         app:showAsAction="never"
-
-
         />
 
 </menu>

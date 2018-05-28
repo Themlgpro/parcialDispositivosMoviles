@@ -40,9 +40,9 @@ public class ClientsActivity extends AppCompatActivity implements CrearCliente.O
                     irListado();
                 }
                 else if(tab.equals(menu.getTabAt(2))){
-                    Intent goToVentas = new Intent(getApplicationContext(),VentasActivity.class);
-                    goToVentas.addFlags(goToVentas.FLAG_ACTIVITY_CLEAR_TOP | goToVentas.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(goToVentas);
+                    Intent goToProductos = new Intent(getApplicationContext(),Producto.class);
+                    goToProductos.addFlags(goToProductos.FLAG_ACTIVITY_CLEAR_TOP | goToProductos.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(goToProductos);
                 }
             }
 

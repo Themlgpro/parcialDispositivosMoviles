@@ -34,8 +34,8 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, G
     private static final int RC_SIGN_IN = 9001;
     private Tienda conexion;
     private SQLiteDatabase bd;
-    EditText username;
-    EditText password;
+    private EditText usuario, pass;
+
     boolean estado = false;
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -47,12 +47,11 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, G
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        username = (EditText)findViewById(R.id.username);
-        password = (EditText)findViewById(R.id.password);
+        setContentView(R.layout.activity_login);
+        usuario = (EditText)findViewById(R.id.usuario);
+        pass = (EditText)findViewById(R.id.contraseña);
 
         conexion= new Tienda(this,"TiendaBD",null,1);
-
-        setContentView(R.layout.activity_login);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
                 requestEmail()
                 .build();
@@ -91,6 +90,8 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, G
         goToClientes.addFlags(goToClientes.FLAG_ACTIVITY_CLEAR_TOP | goToClientes.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(goToClientes);
     }
+
+
 
     private  void signIn(){
         if(checkConnection()){
@@ -153,13 +154,12 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, G
     }
 
     public void iniciarSesion(View g) {
-            ingresar();
-    }
-
-    public void ingresar(){
-        if(username.getText().toString().trim().equals("")||
-                password.getText().toString().trim().equals(""))
+        String u,p;
+        u = usuario.getText().toString(); p = pass.getText().toString();
+        System.out.println("Valor de u: " + u+", valor de p: "+p);
+        if(usuario.getText().toString().trim().equals("") || pass.getText().toString().trim().equals(""))
         {
+            System.out.println("jaja"+usuario.getText().toString() + pass.getText().toString());
             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
             builder.setMessage("Hay campos vacios")
                     .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
@@ -167,19 +167,17 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, G
 
                         }
                     });
-
-            // Create the AlertDialog object and return it
             builder.create();
             builder.show();
         }
         else {
             SQLiteDatabase db = conexion.getReadableDatabase();
-            Cursor c = db.rawQuery("SELECT cedula,password,tipo FROM usuarios WHERE cedula='"+username.getText().toString().trim()
-                    +"' AND password='"+MD5.getMD5(password.getText().toString().trim())+"';",null);
+            Cursor c = db.rawQuery("SELECT cedula,password FROM usuarios WHERE cedula='"+usuario.getText().toString().trim()
+                    +"' AND password='"+MD5.getMD5(pass.getText().toString().trim())+"';",null);
             if(c.moveToFirst() || estado){
-                username.setText("");
-                password.setText("");
-                intoClientes();
+                usuario.setText("");
+                pass.setText("");
+                intoProductos();;
             }else{
                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Login.this);
                 builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
@@ -192,11 +190,14 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, G
                 dialog.show();
             }
         }
-
-
-
-
     }
+
+    private void intoProductos() {
+        Intent goToProducto = new Intent(this,Producto.class);
+        goToProducto.addFlags(goToProducto.FLAG_ACTIVITY_CLEAR_TOP | goToProducto.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(goToProducto);
+    }
+
 
     public void regist(View g){
         obj = new Registrarse();

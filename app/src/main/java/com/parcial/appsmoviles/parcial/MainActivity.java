@@ -32,20 +32,29 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-
+    public void intoClientes(){
+        Intent goToClientes = new Intent(this,ClientsActivity.class);
+        goToClientes.addFlags(goToClientes.FLAG_ACTIVITY_CLEAR_TOP | goToClientes.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(goToClientes);
+    }
+    public void intoVentas(){
+        Intent goToVentas = new Intent(this,VentasActivity.class);
+        goToVentas.addFlags(goToVentas.FLAG_ACTIVITY_CLEAR_TOP | goToVentas.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(goToVentas);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.cliente:
-                Toast.makeText(this, "Cliente", Toast.LENGTH_SHORT).show();
+                intoClientes();
                 return  true;
             case R.id.producto:
                 Toast.makeText(this, "producto", Toast.LENGTH_SHORT).show();
                 irProducto();
                 return  true;
             case R.id.venta:
-                Toast.makeText(this, "Venta", Toast.LENGTH_SHORT).show();
+                intoVentas();
                 return  true;
 
 
