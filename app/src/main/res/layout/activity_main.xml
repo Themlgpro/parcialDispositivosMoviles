@@ -4,21 +4,118 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".VentasActivity">
 
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/Menu"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#3F51B5"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:ignore="MissingConstraints" />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/Menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/colorPrimary"
+                    android:minHeight="?attr/actionBarSize"
+                    tools:ignore="UnusedAttribute" />
+
+            </android.support.design.widget.AppBarLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameVentas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="21dp"
+                    android:text="Digite la cantidad, seleccione un producto y un cliente." />
+
+                <EditText
+                    android:id="@+id/cantidad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="87dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Cantidad"
+                    android:inputType="number" />
+
+                <Spinner
+                    android:id="@+id/selectProductos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cantidad"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="36dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:tooltipText="Seleccione un producto" />
+
+                <Button
+                    android:id="@+id/vender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="37dp"
+                    android:layout_weight="1"
+                    android:text="Vender"
+                    android:onClick="cerrarVenta"/>
+
+                <Button
+                    android:id="@+id/añadir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/vender"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="11dp"
+                    android:layout_weight="1"
+                    android:text="Agregar al carro"
+                    android:onClick="addToCar"/>
+
+                <Spinner
+                    android:id="@+id/selectClientes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/selectProductos"
+                    android:layout_below="@+id/selectProductos"
+                    android:layout_marginTop="24dp"
+                    android:layout_weight="1"
+                    android:tooltipText="Seleccione un cliente"
+                    android:gravity="center"
+                    tools:layout_editor_absoluteX="198dp"
+                    tools:layout_editor_absoluteY="116dp" />
+
+            </RelativeLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>

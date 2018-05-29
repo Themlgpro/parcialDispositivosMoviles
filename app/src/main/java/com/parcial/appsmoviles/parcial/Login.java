@@ -193,7 +193,7 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, G
     }
 
     private void intoProductos() {
-        Intent goToProducto = new Intent(this,Producto.class);
+        Intent goToProducto = new Intent(this,VentasActivity.class);
         goToProducto.addFlags(goToProducto.FLAG_ACTIVITY_CLEAR_TOP | goToProducto.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(goToProducto);
     }

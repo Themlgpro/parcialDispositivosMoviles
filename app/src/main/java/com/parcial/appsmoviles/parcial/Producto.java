@@ -1,5 +1,6 @@
 package com.parcial.appsmoviles.parcial;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.design.widget.TabItem;
@@ -33,7 +34,7 @@ public class Producto extends AppCompatActivity implements crearProducto.OnFragm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_producto);
         toolbar= (Toolbar)findViewById(R.id.Menu);
-//Esta linea da error si la descomenta y no permite el launch de la actividad para ingresar  setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
         menu = (TabLayout) findViewById(R.id.menu);
         irListado();
 
@@ -64,6 +65,46 @@ public class Producto extends AppCompatActivity implements crearProducto.OnFragm
         });
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.cliente:
+                intoClientes();
+                return  true;
+            case R.id.producto:
+                Toast.makeText(this, "producto", Toast.LENGTH_SHORT).show();
+                irProducto();
+                return  true;
+            case R.id.venta:
+                intoVentas();
+                return  true;
+
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    public void irProducto(){
+        Toast.makeText(this,"Estas en productos", Toast.LENGTH_LONG).show();
+
+    }
+
+    public void intoClientes(){
+        Intent goToClientes = new Intent(this,ClientsActivity.class);
+        goToClientes.addFlags(goToClientes.FLAG_ACTIVITY_CLEAR_TOP | goToClientes.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(goToClientes);
+    }
+    public void intoVentas(){
+        Intent goToVentas = new Intent(this,VentasActivity.class);
+        goToVentas.addFlags(goToVentas.FLAG_ACTIVITY_CLEAR_TOP | goToVentas.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(goToVentas);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
